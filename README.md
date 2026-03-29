@@ -13,7 +13,7 @@ A powerful backend system that analyzes a user's competitive programming perform
 * Custom user model with Codeforces handle support
 
 ![Register](screenshots/register.png)
-
+<br>
 ![Login](screenshots/login.png)
 
 ---
@@ -24,7 +24,7 @@ A powerful backend system that analyzes a user's competitive programming perform
 * Fetch and store latest submissions (up to 200)
 
 ![CF Profile](screenshots/cf-profile.png)
-
+<br>
 ![Submissions](screenshots/cf-submissions.png)
 
 ---
@@ -52,7 +52,7 @@ A powerful backend system that analyzes a user's competitive programming perform
   * High attempts but poor performance
 
 ![Weak Topics](screenshots/weak-topics.png)
-
+<br>
 ![Strong Topics](screenshots/strong-topics.png)
 
 ---
