@@ -12,12 +12,20 @@ A powerful backend system that analyzes a user's competitive programming perform
 * Secure password hashing
 * Custom user model with Codeforces handle support
 
+![Register](screenshots/register.png)
+
+![Login](screenshots/login.png)
+
 ---
 
 ### 📊 Codeforces Integration
 
 * Fetch user profile (rating, max rating)
 * Fetch and store latest submissions (up to 200)
+
+![CF Profile](screenshots/cf-profile.png)
+
+![Submissions](screenshots/cf-submissions.png)
 
 ---
 
@@ -32,6 +40,8 @@ A powerful backend system that analyzes a user's competitive programming perform
   * Correct submissions
   * Accuracy %
 
+![Topic Analysis](screenshots/topic-analysis.png)
+
 ---
 
 #### 2. Weak & Strong Topic Detection
@@ -40,9 +50,10 @@ A powerful backend system that analyzes a user's competitive programming perform
 
   * Low accuracy
   * High attempts but poor performance
-* Also considers:
 
-  * Last solved time (recency factor)
+![Weak Topics](screenshots/weak-topics.png)
+
+![Strong Topics](screenshots/strong-topics.png)
 
 ---
 
@@ -52,6 +63,8 @@ A powerful backend system that analyzes a user's competitive programming perform
 
   * Example: 800–1000, 1000–1200
 * Calculates accuracy per bucket
+
+![Rating Analysis](screenshots/rating-analysis.png)
 
 ---
 
@@ -66,6 +79,8 @@ A powerful backend system that analyzes a user's competitive programming perform
 
   * Comfort rating
   * Next target rating
+
+![Recommendations](screenshots/recommendations.png)
 
 ---
 
