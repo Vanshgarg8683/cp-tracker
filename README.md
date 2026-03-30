@@ -180,8 +180,7 @@ python manage.py runserver
 * Include:
 
   * Request/response screenshots
-  * JWT authentication flow
-  * 
+  * JWT authentication flow 
 ---
 
 ## 🚧 Future Improvements
