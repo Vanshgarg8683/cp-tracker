@@ -181,9 +181,7 @@ python manage.py runserver
 
   * Request/response screenshots
   * JWT authentication flow
-
-👉 (Add your screenshots folder link here)
-
+  * 
 ---
 
 ## 🚧 Future Improvements
