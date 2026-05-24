@@ -15,7 +15,7 @@ class FetchCFProfile(APIView):
     
     def post(self, request):
         user = request.user   # current logged-in user
-        handle = request.user.cf_handle
+        handle = handle = request.data.get("cf_handle")
         
         url = f"https://codeforces.com/api/user.info?handles={handle}"  
         # CF API endpoint
