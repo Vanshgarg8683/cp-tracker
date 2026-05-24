@@ -5,15 +5,21 @@ from rest_framework.permissions import AllowAny  # allows public access
 from .serializers import RegisterSerializer
 
 
+from rest_framework.parsers import JSONParser
+
 class RegisterView(APIView):
-    permission_classes = [AllowAny]  # no login required
+    permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
+
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)  # take input
-    
-    
+
+        print(request.data)
+
+        serializer = RegisterSerializer(data=request.data)
+
         if serializer.is_valid():
-            serializer.save()  # save user
+            serializer.save()
             return Response({"msg": "User created"}, status=201)
-        
-        return Response(serializer.errors, status=400)  # return errors
+
+        return Response(serializer.errors, status=400)
 
