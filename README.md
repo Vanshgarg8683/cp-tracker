@@ -79,9 +79,7 @@ A powerful backend system that analyzes a user's competitive programming perform
 
   * Comfort rating
   * Next target rating
-
 ![Recommendations](screenshots/recommendations.png)
-
 ---
 
 ## 🛠️ Tech Stack
