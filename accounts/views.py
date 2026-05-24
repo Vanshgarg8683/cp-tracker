@@ -5,11 +5,9 @@ from rest_framework.permissions import AllowAny  # allows public access
 from .serializers import RegisterSerializer
 
 
-from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
-    parser_classes = [JSONParser, FormParser, MultiPartParser]
 
     def post(self, request):
 
