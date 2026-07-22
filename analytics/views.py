@@ -50,19 +50,12 @@ class FetchCFSubmissions(APIView):
         profile = CPProfile.objects.get(user=request.user)
         handle = profile.cf_handle
         url = f"https://codeforces.com/api/user.status?handle={handle}"
-        print("Handle used:", handle)
-        print(url)
         res = requests.get(url).json()
 
         if res["status"] != "OK":
             return Response({"error": "Failed to fetch"}, status=400)
 
         submissions = res["result"]
-
-        # Print first submission for debugging
-        if submissions:
-            print("First submission:")
-            print(submissions[0])
 
         # Delete old submissions
         Submission.objects.filter(user=user).delete()
@@ -71,12 +64,6 @@ class FetchCFSubmissions(APIView):
             problem = sub.get("problem", {})
 
             timestamp = sub.get("creationTimeSeconds")
-
-            # Debug prints
-            print("Submission ID:", sub.get("id"))
-            print("Timestamp:", timestamp)
-            print("Converted:", datetime.fromtimestamp(timestamp, tz=timezone.utc))
-            print("-" * 50)
 
             Submission.objects.create(
                 user=user,
