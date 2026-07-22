@@ -15,8 +15,7 @@ class FetchCFProfile(APIView):
     
     def post(self, request):
         user = request.user   # current logged-in user
-        handle = handle = request.data.get("cf_handle")
-        
+        handle = request.data.get("cf_handle")
         url = f"https://codeforces.com/api/user.info?handles={handle}"  
         # CF API endpoint
 
@@ -41,43 +40,57 @@ class FetchCFProfile(APIView):
             "max_rating": profile.max_rating
         })
  
-class FetchCFSubmissions(APIView):
-    permission_classes = [IsAuthenticated]  # only logged-in users
 
-    
+class FetchCFSubmissions(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
-        user = request.user  # current user
-        
-        handle = request.user.cf_handle
-        
-        url = f"https://codeforces.com/api/user.status?handle={handle}"  
-        # CF submissions API
-        
-        res = requests.get(url).json()  # call API
-        
-        if res['status'] != 'OK':
+        user = request.user
+
+        profile = CPProfile.objects.get(user=request.user)
+        handle = profile.cf_handle
+        url = f"https://codeforces.com/api/user.status?handle={handle}"
+        print("Handle used:", handle)
+        print(url)
+        res = requests.get(url).json()
+
+        if res["status"] != "OK":
             return Response({"error": "Failed to fetch"}, status=400)
-        
-        submissions = res['result']  # list of submissions
-        
-        Submission.objects.filter(user=user).delete()  
-        # delete old data → avoid duplicates
-        
-        # limit to 200 (performance safe)
-        for sub in submissions[:200]:  
-            problem = sub.get('problem', {})  # problem info
+
+        submissions = res["result"]
+
+        # Print first submission for debugging
+        if submissions:
+            print("First submission:")
+            print(submissions[0])
+
+        # Delete old submissions
+        Submission.objects.filter(user=user).delete()
+
+        for sub in submissions[:200]:
+            problem = sub.get("problem", {})
+
+            timestamp = sub.get("creationTimeSeconds")
+
+            # Debug prints
+            print("Submission ID:", sub.get("id"))
+            print("Timestamp:", timestamp)
+            print("Converted:", datetime.fromtimestamp(timestamp, tz=timezone.utc))
+            print("-" * 50)
 
             Submission.objects.create(
                 user=user,
-                problem_name=problem.get('name'),  # title
-                verdict=sub.get('verdict'),  # OK / WA
-                tags=problem.get('tags', []),  # list of tags
-                rating=problem.get('rating'),  # difficulty
-                creation_time=datetime.fromtimestamp(sub.get('creationTimeSeconds'))
+                problem_name=problem.get("name"),
+                verdict=sub.get("verdict"),
+                tags=problem.get("tags", []),
+                rating=problem.get("rating"),
+                creation_time=datetime.fromtimestamp(
+                    timestamp,
+                    tz=timezone.utc
+                )
             )
-            
-        return Response({"msg": "Submissions stored"})
 
+        return Response({"msg": "Submissions stored"})
 from collections import defaultdict  # auto-initialize dict
 
 class TopicAnalysis(APIView):
